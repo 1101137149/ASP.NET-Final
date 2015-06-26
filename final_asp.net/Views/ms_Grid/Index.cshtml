@@ -1,0 +1,25 @@
+﻿﻿﻿@(Html.Kendo().Grid<final_asp.net.Models.ms_data>()
+      .Name("grid")
+      .Columns(columns =>
+      {
+        columns.Bound(c => c.time).Width(150);
+        columns.Bound(c => c.name).Width(150);
+        columns.Bound(c => c.email).Width(200);
+        columns.Bound(c => c.message);
+        columns.Command(command => { command.Edit(); command.Destroy(); }).Width(180);
+      })
+      .ToolBar(toolbar => {
+            toolbar.Create();
+      }) 
+      .Editable(editable => editable.Mode(GridEditMode.InLine))
+      .Scrollable()
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .Model(model => model.Id(p => p.id))
+          .Read(read => read.Action("ms_data_Read", "ms_Grid"))
+          .Create(create => create.Action("ms_data_Create", "ms_Grid"))
+          .Update(update => update.Action("ms_data_Update", "ms_Grid"))
+          .Destroy(destroy => destroy.Action("ms_data_Destroy", "ms_Grid"))
+      )
+        .HtmlAttributes(new { style = "height: 1000px ;width:110%"})
+)
